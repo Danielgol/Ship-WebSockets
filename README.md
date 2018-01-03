@@ -1,2 +1,2 @@
 # Ship-WebSockets
-Web Sockets example with ships on canvas, using Node Js and Express Js
+Web Sockets example with ships on canvas, using Node Js, Express Js and collision framework SAT.js
