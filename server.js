@@ -4,6 +4,13 @@ var express = require('express');
 var app = express();
 var server = app.listen(3000);
 
+var balls = [];
+
+function ball(x, y){
+  this.x = x;
+  this.y = y;
+}
+
 app.use(express.static('public'));
 
 console.log("Your server is running in port 3000.");
@@ -15,9 +22,9 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
   console.log('New Connection: '+socket.id);
-  socket.on('ship', getShip);
-  function getShip(data){
-    socket.broadcast.emit('ship', data);
+  socket.on('ball', getBall);
+  function getBall(data){
+    socket.broadcast.emit('ball', data);
     //console.log(data);
   }
 }
