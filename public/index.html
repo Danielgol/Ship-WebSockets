@@ -1,0 +1,32 @@
+<html lang="pt-br">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Ship_WS</title>
+
+    <style>
+      canvas {
+          position: absolute;
+          background-color: #101010;
+          width:  100%;
+          height: 100%;
+          top: 0%;
+          left: 0%;
+          margin: 0px;
+          z-index: 1; /*https://developer.mozilla.org/pt-BR/docs/Web/CSS/z-index?v=control*/
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <canvas height="600" width="1000" id="mycanvas">O seu browser não suporta canvas</canvas>
+
+    <script>
+      var canvas = document.getElementById("mycanvas");
+      var ctx = canvas.getContext("2d");
+    </script>
+
+  </body>
+</html>
