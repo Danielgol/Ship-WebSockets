@@ -5,7 +5,6 @@ function Ship(triangle, centerX, centerY){
 	this.x = centerX;
 	this.y = centerY;
 	this.angle = 0;
-	this.resultingAngle = 0;
 	this.forceX = 0;
 	this.forceY = 0;
 	this.energy = 15;
@@ -84,7 +83,6 @@ function Ship(triangle, centerX, centerY){
 	}
 
 	this.boost = function(){
-			this.resultingAngle = this.angle;
 			if ((this.angle < 90 || this.angle > 270) || (this.angle > 90 && this.angle < 270)) {//CIMA BAIXO
 		           this.forceY += Math.cos(this.angle * Math.PI / 180) * 0.006;
 		  }

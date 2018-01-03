@@ -22,15 +22,19 @@
 
     <canvas height="600" width="1000" id="mycanvas">O seu browser não suporta canvas</canvas>
 
+    <script type="text/javascript" src="javascripts/SAT.js"></script>
+
     <script>
+
       var socket;
-      socket = io.connect('http://localhost:3000');
 
       var canvas = document.getElementById("mycanvas");
       var ctx = canvas.getContext("2d");
+
+      socket = io.connect('http://localhost:3000');
+
     </script>
 
-    <script type="text/javascript" src="javascripts/SAT.js"></script>
     <script type="text/javascript" src="javascripts/classes/Ship.js"></script>
     <script type="text/javascript" src="javascripts/classes/Shot.js"></script>
     <script type="text/javascript" src="javascripts/classes/Screen.js"></script>

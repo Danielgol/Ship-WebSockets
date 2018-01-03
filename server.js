@@ -15,4 +15,9 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
   console.log('New Connection: '+socket.id);
+  socket.on('ship', getShip);
+  function getShip(data){
+    socket.broadcast.emit('ship', data);
+    //console.log(data);
+  }
 }
