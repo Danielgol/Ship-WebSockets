@@ -15,8 +15,8 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
   console.log('New Connection: '+socket.id);
-  socket.on('ship', emitBall);
-  function emitBall(data){
+  socket.on('ship', emitShip);
+  function emitShip(data){
     socket.broadcast.emit('ship', data);
     //console.log(data);
   }
