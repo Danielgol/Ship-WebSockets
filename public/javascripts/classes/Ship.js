@@ -4,6 +4,18 @@ function sendShip(ship){
 	socket.emit('ship', ship);
 }
 
+function drawShip(ctx, triangle, color){
+		ctx.beginPath();
+		ctx.moveTo(triangle['points'][0]['x'], triangle['points'][0]['y']);
+		ctx.lineTo(triangle['points'][1]['x'], triangle['points'][1]['y']);
+		ctx.lineTo(triangle['points'][2]['x'], triangle['points'][2]['y']);
+		ctx.lineTo(triangle['points'][0]['x'], triangle['points'][0]['y']);
+		ctx.lineWidth = 1.5;
+		ctx.strokeStyle = color;
+		ctx.stroke();
+		ctx.closePath();
+}
+
 function Ship(triangle, x, y){
 
 	this.triangle = triangle;
@@ -29,7 +41,7 @@ function Ship(triangle, x, y){
 			this.slide(0.001);
 			this.applyForces();
 			this.obeyLimit(canvas.width, canvas.height);
-			this.drawShip(ctx);
+			drawShip(ctx, this.triangle, "white");
 			sendShip(this);
 	}
 
@@ -145,17 +157,5 @@ function Ship(triangle, x, y){
 	// 		ctx.stroke();
 	// 		ctx.closePath();
 	// }
-
-	this.drawShip = function(ctx){
-			ctx.beginPath();
-	    ctx.moveTo(this.triangle['points'][0]['x'], this.triangle['points'][0]['y']);
-	    ctx.lineTo(this.triangle['points'][1]['x'], this.triangle['points'][1]['y']);
-	    ctx.lineTo(this.triangle['points'][2]['x'], this.triangle['points'][2]['y']);
-	    ctx.lineTo(this.triangle['points'][0]['x'], this.triangle['points'][0]['y']);
-			ctx.lineWidth = 1.5;
-			ctx.strokeStyle = "white";
-	    ctx.stroke();
-	    ctx.closePath();
-	}
 
 }

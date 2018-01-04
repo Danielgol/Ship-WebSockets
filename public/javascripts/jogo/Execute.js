@@ -4,6 +4,7 @@ var ctx = canvas.getContext("2d");
 
 var ship;
 
+//detecta as teclas do teclado;
 var keys = [];
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true; //alert(e.keyCode);
@@ -12,29 +13,18 @@ document.addEventListener("keyup", function (e) {
 	delete keys[e.keyCode];
 }, false);
 
+//recebe as naves dos outros jogadores e dispara a função drawOtherShip;
 socket.on('ship', drawOtherShip);
 
+//desenha a nave dos outros jogadores;
 function drawOtherShip(data){
-	//apagar rastro
+	//apagar rastro da nave;
 	ctx.clearRect(data.x-13, data.y-13, 26, 26);
-
-	//desenhar a outra nave
-	// ctx.beginPath();
-	// ctx.arc(data.x,data.y,10,0,2*Math.PI);
-	// ctx.fillStyle = "red";
-	// ctx.fill();
-	// ctx.closePath();
-	ctx.beginPath();
-	ctx.moveTo(data.triangle['points'][0]['x'], data.triangle['points'][0]['y']);
-	ctx.lineTo(data.triangle['points'][1]['x'], data.triangle['points'][1]['y']);
-	ctx.lineTo(data.triangle['points'][2]['x'], data.triangle['points'][2]['y']);
-	ctx.lineTo(data.triangle['points'][0]['x'], data.triangle['points'][0]['y']);
-	ctx.lineWidth = 1.5;
-	ctx.strokeStyle = "red";
-	ctx.stroke();
-	ctx.closePath();
+	//desenhar a outra nave;
+	drawShip(ctx, data.triangle, "red");
 }
 
+//cria a sua nave
 function createShip(){
 	var x = Math.floor(Math.random()*(canvas.width-20+1)+20);
 	var y = Math.floor(Math.random()*(canvas.height-20+1)+20);
@@ -46,10 +36,12 @@ function createShip(){
 	return ship;
 }
 
+//faz o loop da sua nave
 function loop(){
 	ship.move(keys);
 }
 
+//inicia o jogo
 function start(){
 	ship = createShip();
 	setInterval(loop, 10);
