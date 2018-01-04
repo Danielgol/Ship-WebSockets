@@ -1,21 +1,22 @@
 
-function sendCommand(ball){
-	console.log('Sending: '+ball.x+', '+ball.y);
-	socket.emit('ball', ball);
+function sendShip(ship){
+	console.log('Sending: '+ship.x+', '+ship.y+', '+ship.angle);
+	socket.emit('ship', ship);
 }
 
-function Ball(){
+function Ship(){
 
 	this.x = Math.floor(Math.random()*(canvas.width-20+1)+20);
 	this.y = Math.floor(Math.random()*(canvas.height-20+1)+20);
+	this.angle = 0;
 
 	this.move = function(keys){
 			if (38 in keys) {
 				this.y -= 2;
 			}
-			if(40 in keys) {
-				this.y += 2;
-			}
+			// if(40 in keys) {
+			// 	this.y += 2;
+			// }
 			if (39 in keys) {
 				this.x += 2;
 			}
@@ -24,8 +25,8 @@ function Ball(){
 			}
 			ctx.clearRect(this.x-13, this.y-13, 26, 26);
 			this.obeyLimit(canvas.width, canvas.height);
-			this.drawBall(ctx);
-			sendCommand(this);
+			this.drawShip(ctx);
+			sendShip(this);
 	}
 
 	this.obeyLimit = function(width, height){
@@ -40,7 +41,7 @@ function Ball(){
 			}
 	}
 
-	this.drawBall = function(ctx){
+	this.drawShip = function(ctx){
 			ctx.beginPath();
 			ctx.arc(this.x,this.y,10,0,2*Math.PI);
 			ctx.fillStyle = "white";

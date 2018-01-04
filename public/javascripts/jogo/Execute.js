@@ -2,7 +2,7 @@
 var canvas = document.getElementById("mycanvas");
 var ctx = canvas.getContext("2d");
 
-var ball = new Ball();
+var ship = new Ship();
 
 var keys = [];
 document.addEventListener("keydown", function (e) {
@@ -12,7 +12,7 @@ document.addEventListener("keyup", function (e) {
 	delete keys[e.keyCode];
 }, false);
 
-socket.on('ball', drawOtherShip);
+socket.on('ship', drawOtherShip);
 
 function drawOtherShip(data){
 	//apagar tudo
@@ -27,7 +27,7 @@ function drawOtherShip(data){
 }
 
 function loop(){
-	ball.move(keys);
+	ship.move(keys);
 }
 
 setInterval(loop, 10);
