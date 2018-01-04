@@ -6,8 +6,8 @@ function sendCommand(ball){
 
 function Ball(){
 
-	this.x = Math.floor(Math.random()*(canvas.width-20+1)+20);;
-	this.y = Math.floor(Math.random()*(canvas.height-20+1)+20);;
+	this.x = Math.floor(Math.random()*(canvas.width-20+1)+20);
+	this.y = Math.floor(Math.random()*(canvas.height-20+1)+20);
 
 	this.move = function(keys){
 			if (38 in keys) {
