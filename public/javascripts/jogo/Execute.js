@@ -28,6 +28,12 @@ function drawOtherShip(data){
 			if(data.shots[i].reach >= 0.1){
 				drawShot(ctx, data.shots[i]);//.........................................DESENHA O TIRO
 			}
+			var response = new SAT.Response();
+			var collided = SAT.testPolygonCircle
+			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
+			if(collided === true){
+				ship = createShip();
+			}
 	}
 }
 
