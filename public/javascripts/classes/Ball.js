@@ -6,34 +6,26 @@ function sendCommand(ball){
 
 function Ball(){
 
-	this.x = 100;
-	this.y = 100;
+	this.x = Math.floor(Math.random()*(canvas.width-20+1)+20);;
+	this.y = Math.floor(Math.random()*(canvas.height-20+1)+20);;
 
 	this.move = function(keys){
 			if (38 in keys) {
 				this.y -= 2;
-				this.obeyLimit(canvas.width, canvas.height);
-				this.drawBall(ctx);
-				sendCommand(this);
 			}
 			if(40 in keys) {
 				this.y += 2;
-				this.obeyLimit(canvas.width, canvas.height);
-				this.drawBall(ctx);
-				sendCommand(this);
 			}
 			if (39 in keys) {
 				this.x += 2;
-				this.obeyLimit(canvas.width, canvas.height);
-				this.drawBall(ctx);
-				sendCommand(this);
 			}
 			if (37 in keys) {
 				this.x -= 2;
-				this.obeyLimit(canvas.width, canvas.height);
-				this.drawBall(ctx);
-				sendCommand(this);
 			}
+			ctx.clearRect(this.x-13, this.y-13, 26, 26);
+			this.obeyLimit(canvas.width, canvas.height);
+			this.drawBall(ctx);
+			sendCommand(this);
 	}
 
 	this.obeyLimit = function(width, height){
@@ -51,9 +43,8 @@ function Ball(){
 	this.drawBall = function(ctx){
 			ctx.beginPath();
 			ctx.arc(this.x,this.y,10,0,2*Math.PI);
-			ctx.lineWidth = 1.5;
-			ctx.strokeStyle = "white";
-	    ctx.stroke();
+			ctx.fillStyle = "white";
+			ctx.fill();
 	    ctx.closePath();
 	}
 

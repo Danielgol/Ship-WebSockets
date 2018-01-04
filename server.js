@@ -4,13 +4,6 @@ var express = require('express');
 var app = express();
 var server = app.listen(3000);
 
-var balls = [];
-
-function ball(x, y){
-  this.x = x;
-  this.y = y;
-}
-
 app.use(express.static('public'));
 
 console.log("Your server is running in port 3000.");
