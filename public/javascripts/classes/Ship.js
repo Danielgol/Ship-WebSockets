@@ -24,6 +24,8 @@ function Ship(triangle, x, y){
 	this.forceX = 0;
 	this.forceY = 0;
 	this.angle = 0;
+	this.energy = 20;
+	this.shots = [];
 
 	this.move = function(keys){
 			if (38 in keys) {
@@ -36,6 +38,14 @@ function Ship(triangle, x, y){
 			if (37 in keys) {
 				this.turn(-4)
 			}
+			if (32 in keys){
+				this.shoot();
+			}else{
+				if(this.energy < 20){
+					this.energy += 2;
+				}
+			}
+			this.moveShots();
 			ctx.clearRect(this.x-14, this.y-14, 28, 28);
 			this.regulateVelocity(2);
 			this.slide(0.001);
@@ -44,6 +54,29 @@ function Ship(triangle, x, y){
 			drawShip(ctx, this.triangle, "white");
 			sendShip(this);
 	}
+
+	this.shoot = function(){
+			if(this.energy >= 20){
+				var circle = new SAT.Circle(new SAT.Vector(this.x , this.y), 2);
+				var shot = new Shot(circle, this.angle);
+				this.shots.push(shot);
+				this.energy -= 20;
+			}
+	}
+
+	this.moveShots = function(){
+    for(i = this.shots.length-1; i>=0; i--){
+				ctx.clearRect(this.shots[i].circle['pos'].x-6, this.shots[i].circle['pos'].y-6, 12, 12);
+				this.shots[i].move(3);//......................................................MOVE O TIRO
+				this.shots[i].obeyLimit(canvas.width, canvas.height);//...................FAZ COM QUE O TIRO OBEDEÇA OS LIMITES DA TELA
+				this.shots[i].loseReach(0.1);//...............................................FAZ QUE O TIRO PERCA "TEMPO DE VIDA"
+				if(this.shots[i].reach <= 0){//...............................................VERIFICA O TEMPO DE VIDA DO TIRO
+					this.shots.splice(i, 1);//..................................................REMOVE O TIRO
+				}else{
+					drawShot(ctx, this.shots[i]);//.........................................DESENHA O TIRO
+				}
+		}
+  }
 
 	this.turn = function(i){
 			this.angle += i;
