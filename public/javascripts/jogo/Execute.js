@@ -32,19 +32,21 @@ function drawOtherShip(data){
 			if(data.shots[i].reach >= 0.1){
 				drawShot(ctx, data.shots[i]);//.........................................DESENHA O TIRO
 			}
-			var response = new SAT.Response();
-			var collided = SAT.testPolygonCircle
-			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
-			if(collided === true){
-				respawn();
+			if(ship.imortality === false){
+				var response = new SAT.Response();
+				var collided = SAT.testPolygonCircle
+				(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
+				if(collided === true){
+					respawn();
+				}
 			}
 	}
 }
 
 //cria a sua nave;
-function createShip(){
-	var x = canvas.width/2;
-	var y = canvas.height/2;
+function createShip(x, y){
+	var x = x;
+	var y = y;
 	var triangle = new SAT.Polygon(new SAT.Vector(0, 0), [new SAT.Vector(-6, -6),
   new SAT.Vector(6,-6), new SAT.Vector(0,7)]);
   triangle.rotate((Math.PI/180)*180);
@@ -52,13 +54,17 @@ function createShip(){
   ship = new Ship(triangle, x, y);
 	setTimeout(function() {
 		ship.imortality = false;
-	}, 3000);
+	}, 6000);
 }
 
 function respawn(){
 	ctx.clearRect(ship.x-14, ship.y-14, 28, 28);
 	ship.imortality = true;
-	createShip();
+	createShip(canvas.width/2, canvas.height/2);
+	ship.visible = false;
+	setTimeout(function() {
+		ship.visible = true;
+	}, 3000);
 }
 
 //faz o loop da sua nave;
@@ -68,7 +74,7 @@ function loop(){
 
 //inicia o jogo;
 function start(){
-	createShip();
+	createShip(Math.floor(Math.random()*(canvas.width-20+1)+20),Math.floor(Math.random()*(canvas.height-20+1)+20));
 	setInterval(loop, 10);
 }
 
