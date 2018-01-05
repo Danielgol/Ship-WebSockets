@@ -26,6 +26,7 @@ function Ship(triangle, x, y){
 	this.angle = 0;
 	this.energy = 20;
 	this.shots = [];
+	this.imortality = true;
 
 	this.move = function(keys){
 			if (38 in keys) {
@@ -51,7 +52,11 @@ function Ship(triangle, x, y){
 			this.slide(0.001);
 			this.applyForces();
 			this.obeyLimit(canvas.width, canvas.height);
-			drawShip(ctx, this.triangle, "white");
+			if(this.imortality === true){
+				drawShip(ctx, this.triangle, "grey");
+			}else{
+				drawShip(ctx, this.triangle, "white");
+			}
 			sendShip(this);
 	}
 
