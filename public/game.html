@@ -26,7 +26,7 @@
 
   <body style="background-color: #101010;">
 
-    <table><tr><td>RANKING</td></tr></table>
+    <table id="ranking"><tr><td>RANKING</td></tr></table>
 
     <canvas height="600" width="900" id="mycanvas">O seu browser não suporta canvas</canvas>
 
@@ -47,6 +47,14 @@
       }
 
       socket.emit('new user', user);
+
+      socket.on('ranking', function(data){
+          var html = "<tr><td>RANKING</td></tr>";
+          for(i=0; i<data.users.length; i++){
+              html += "<tr><td>"+(i+1)+". "+data.users[i].name+": "+data.users[i].points+"</td></tr>";
+          }
+          document.getElementById('ranking').innerHTML = html;
+      });
 
     </script>
 

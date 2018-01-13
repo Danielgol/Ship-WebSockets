@@ -30,7 +30,7 @@ io.sockets.on('connection', function(socket){
   socket.on('new user', function(data){
   	console.log('User %s: '+data.name, connections.length);
     users.push(data);
-    //showRanking();
+    showRanking();
   });
 
   //Disconnect
@@ -38,7 +38,7 @@ io.sockets.on('connection', function(socket){
   	users.splice(connections.indexOf(socket), 1);
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
-    //showRanking();
+    showRanking();
   });
 
   //Send ship to others
@@ -52,12 +52,9 @@ io.sockets.on('connection', function(socket){
   });
 
   function showRanking(){
-
   	var ranking = users;
-
   	//sort ranking
-
-  	io.sockets.emit('ranking', {ranking: ranking});
+  	io.sockets.emit('ranking', {users: ranking});
   }
   
 });

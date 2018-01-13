@@ -28,18 +28,18 @@ function drawOtherShip(data){
 	}
 	//desenhar os tiros;
 	for(i = data.shots.length-1; i>=0; i--){
-			ctx.clearRect(data.shots[i].circle['pos'].x-6, data.shots[i].circle['pos'].y-6, 12, 12);
-			if(data.shots[i].reach >= 0.1){
-				drawShot(ctx, data.shots[i]);//.........................................DESENHA O TIRO
+		ctx.clearRect(data.shots[i].circle['pos'].x-6, data.shots[i].circle['pos'].y-6, 12, 12);
+		if(data.shots[i].reach >= 0.1){
+			drawShot(ctx, data.shots[i]);//.........................................DESENHA O TIRO
+		}
+		if(ship.imortality === false){
+			var response = new SAT.Response();
+			var collided = SAT.testPolygonCircle
+			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
+			if(collided === true){
+				respawn();
 			}
-			if(ship.imortality === false){
-				var response = new SAT.Response();
-				var collided = SAT.testPolygonCircle
-				(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
-				if(collided === true){
-					respawn();
-				}
-			}
+		}
 	}
 }
 
