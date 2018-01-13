@@ -48,10 +48,10 @@ function createShip(x, y){
 	var x = x;
 	var y = y;
 	var triangle = new SAT.Polygon(new SAT.Vector(0, 0), [new SAT.Vector(-6, -6),
-  new SAT.Vector(6,-6), new SAT.Vector(0,7)]);
-  triangle.rotate((Math.PI/180)*180);
-  triangle.translate(x, y);
-  ship = new Ship(triangle, x, y);
+  	new SAT.Vector(6,-6), new SAT.Vector(0,7)]);
+  	triangle.rotate((Math.PI/180)*180);
+  	triangle.translate(x, y);
+  	ship = new Ship(triangle, x, y);
 	setTimeout(function() {
 		ship.imortality = false;
 	}, 6000);

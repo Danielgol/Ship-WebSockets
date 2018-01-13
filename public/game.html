@@ -1,0 +1,58 @@
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Ship_WS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <style>
+      canvas {
+          position: absolute;
+          background-color: #202020;
+          top: 5%;
+          left: 17%;
+          margin: 0px;
+      }
+
+      table {
+          position: absolute;
+          top: 5%;
+          left: 2%;
+          border: 2px solid white;
+          border-radius: 5;
+          background-color: #101010;
+          color: white;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #101010;">
+
+    <table><tr><td>RANKING</td></tr></table>
+
+    <canvas height="600" width="900" id="mycanvas">O seu browser não suporta canvas</canvas>
+
+    <script type="text/javascript" src="javascripts/SAT.js"></script>
+
+    <script>
+
+      var socket;
+
+      var canvas = document.getElementById("mycanvas");
+      var ctx = canvas.getContext("2d");
+
+      socket = io.connect();
+
+      var user = {
+        name: location.search.split('name=')[1],
+        points: 0
+      }
+
+      socket.emit('new user', user);
+
+    </script>
+
+    <script type="text/javascript" src="javascripts/classes/Shot.js"></script>
+    <script type="text/javascript" src="javascripts/classes/Ship.js"></script>
+    <script type="text/javascript" src="javascripts/jogo/Execute.js"></script>
+
+  </body>
+</html>

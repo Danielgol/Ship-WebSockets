@@ -1,43 +1,33 @@
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <title>Ship_WS</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-    <style>
-      canvas {
-          position: absolute;
-          background-color: #101010;
-          width:  100%;
-          height: 100%;
-          top: 0%;
-          left: 0%;
-          margin: 0px;
-          z-index: 1; /*https://developer.mozilla.org/pt-BR/docs/Web/CSS/z-index?v=control*/
-      }
-    </style>
+<html>
+<head>
+  <title>Nave IO</title>
+</head>
+<body>
 
-  </head>
+  <style>
 
-  <body>
+    form {
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        border: 0px;
+        transform: translate(-50%, -90%);
+    }
 
-    <canvas height="600" width="1000" id="mycanvas">O seu browser não suporta canvas</canvas>
+  </style>
 
-    <script type="text/javascript" src="javascripts/SAT.js"></script>
+  <form action="/game" id="user" >
+    <tr>
+      <td>
+        <input type="text" name="name" placeholder="Digite seu Nome">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="submit" value=">">
+      </td>
+    </tr>
+  </form>
 
-    <script>
-
-      var socket;
-
-      var canvas = document.getElementById("mycanvas");
-      var ctx = canvas.getContext("2d");
-
-      socket = io.connect('http://localhost:3000');
-
-    </script>
-
-    <script type="text/javascript" src="javascripts/classes/Shot.js"></script>
-    <script type="text/javascript" src="javascripts/classes/Ship.js"></script>
-    <script type="text/javascript" src="javascripts/jogo/Execute.js"></script>
-
-  </body>
+</body>
 </html>
