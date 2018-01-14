@@ -1,0 +1,79 @@
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Ship.io</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <style>
+      canvas {
+        position: absolute;
+        background-color: #101010;
+        top: 5%;
+        left: 17%;
+        margin: 0px;
+      }
+      table {
+        font-family: Arista;
+        font-size: 20px;
+        position: absolute;
+        top: 5%;
+        left: 1%;
+        background-color: #101010;
+        color: white;
+      }
+      td.name {
+        max-width: 165px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #101010;">
+
+    <table id="ranking"><tr><td>RANKING</td></tr></table>
+
+    <canvas style="background-color: white; top:4.8%; left: 16.9%;" height="602" width="902" id="border"></canvas>
+
+    <canvas height="600" width="900" id="mycanvas">O seu browser não suporta canvas</canvas>
+
+    <script type="text/javascript" src="javascripts/SAT.js"></script>
+
+    <script>
+
+      var socket;
+
+      var canvas = document.getElementById("mycanvas");
+      var ctx = canvas.getContext("2d");
+
+      socket = io.connect();
+
+      var user = {
+        name: location.search.split('name=')[1],
+        points: 0
+      }
+
+      socket.emit('new user', user);
+
+      socket.on('ranking', function(data){
+        var ranking = data;
+        var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">RANKING</td></tr>";
+        for(i=0; i<ranking.length; i++){
+            html += "<tr><td class=\"name\">"+(i+1)+". "+ranking[i].name+" </td><td>: "+ranking[i].points+"</td></tr>";
+        }
+        document.getElementById('ranking').innerHTML = html;
+      });
+
+      socket.on('erase all', function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+    </script>
+
+    <script type="text/javascript" src="../javascripts/classes/Shot.js"></script>
+    <script type="text/javascript" src="../javascripts/classes/Ship.js"></script>
+    <script type="text/javascript" src="../javascripts/jogo/Execute.js"></script>
+
+  </body>
+</html>

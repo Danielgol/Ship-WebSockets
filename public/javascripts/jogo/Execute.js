@@ -4,7 +4,6 @@ var ctx = canvas.getContext("2d");
 
 var ship;
 
-//detecta as teclas do teclado;
 var keys = [];
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true; //alert(e.keyCode);
@@ -13,20 +12,17 @@ document.addEventListener("keyup", function (e) {
 	delete keys[e.keyCode];
 }, false);
 
-//recebe as naves dos outros jogadores e dispara a função drawOtherShip;
-socket.on('ship', drawOtherShip);
+//recebe as naves dos outros jogadores;
+socket.on('ship', function (data){
 
-//desenha a nave dos outros jogadores;
-function drawOtherShip(data){
-	//apagar rastro da nave;
 	ctx.clearRect(data.x-13, data.y-13, 26, 26);
-	//desenhar a outra nave;
+
 	if(data.imortality === true){
 		drawShip(ctx, data.triangle, "#CD5C5C");
 	}else{
 		drawShip(ctx, data.triangle, "red");
 	}
-	//desenhar os tiros;
+
 	for(i = data.shots.length-1; i>=0; i--){
 		ctx.clearRect(data.shots[i].circle['pos'].x-6, data.shots[i].circle['pos'].y-6, 12, 12);
 		if(data.shots[i].reach >= 0.1){
@@ -38,13 +34,18 @@ function drawOtherShip(data){
 			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
 			if(collided === true){
 				socket.emit('increase points', data.name);
+				socket.emit('hitted ship', {x: ship.x, y: ship.y});
 				respawn();
 			}
 		}
 	}
-}
+});
 
-//cria a sua nave;
+//apagar nave destruida
+socket.on('erase ship', function(data){
+	ctx.clearRect(data.x-14, data.y-14, 28, 28);
+});
+
 function createShip(x, y){
 	var x = x;
 	var y = y;
@@ -62,7 +63,6 @@ function createShip(x, y){
 }
 
 function respawn(){
-	ctx.clearRect(ship.x-14, ship.y-14, 28, 28);
 	ship.imortality = true;
 	createShip(canvas.width/2, canvas.height/2);
 	ship.visible = false;
@@ -71,12 +71,10 @@ function respawn(){
 	}, 3000);
 }
 
-//faz o loop da sua nave;
 function loop(){
 	ship.move(keys);
 }
 
-//inicia o jogo;
 function start(){
 	createShip(Math.floor(Math.random()*(canvas.width-20+1)+20),Math.floor(Math.random()*(canvas.height-20+1)+20));
 	setInterval(loop, 10);

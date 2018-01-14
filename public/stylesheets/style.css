@@ -9,29 +9,11 @@
   src: url("./_fonts/Hyperspace Italic.otf");
 }
 
+@font-face {
+  font-family: Arista;
+  src: url("./_fonts/Arista.ttf");
+}
+
 body {
     background-color: #101010;
-}
-
-canvas {
-    position: absolute;
-    background-color: #101010;
-    top: 5%;
-    left: 17%;
-    margin: 0px;
-}
-
-input {
-    font-family: Hyper;
-    font-size: 30px;
-    color: white;
-    background-color: #101010;
-}
-
-form {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    border: 0px;
-    transform: translate(-50%, -60%);
 }

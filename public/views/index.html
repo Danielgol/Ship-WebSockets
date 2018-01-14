@@ -1,0 +1,58 @@
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Ship.io</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <style>
+      input {
+        border-radius: 20px;
+        font-family: Arista;
+        font-size: 30px;
+        color: white;
+        background-color: #101010;
+      }
+      form {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        border: 0px;
+        transform: translate(-50%, -60%);
+      }
+    </style>
+</head>
+<body>
+
+  <table style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -20%);">
+    <tr><td style="color: white; font-size: 140px; font-family: Arista;">Ship.io</td></tr>
+  </table>
+
+  <form action="/game" id="user" >
+    <table>
+      <tr>
+      <td>
+        <input type="text" name="name" placeholder="  Nickname">
+      </td>
+      <td>
+        <input type="submit" value="Start">
+      </td>
+    </tr>
+    </table>
+  </form>
+
+  <table style="position: absolute; top: 67%; left: 50%; transform: translate(-50%, -67%);">
+    <tr><td style="color: grey; font-size: 25px; font-family: Arista;">by Daniel Rosa</td></tr>
+  </table>
+
+  <table style="position: absolute; top: 85%; left: 50%; transform: translate(-50%, 0%);">
+    <tr><td><input style="width: 230px; height: 50px;" type="image" src="../images/button.png" onclick="acessGitHub();"></td></tr>
+  </table>
+
+  <script>
+    function acessGitHub(){
+      var win = window.open("https://github.com/Danielgol/Ship-WebSockets", '_blank');
+      win.focus();
+    }
+  </script>
+
+</body>
+</html>

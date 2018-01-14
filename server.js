@@ -14,11 +14,11 @@ console.log("Your server is running...");
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/views/index.html');
 });
 
 app.get('/game', function(req, res){
-  res.sendFile(__dirname + '/public/game.html');
+  res.sendFile(__dirname + '/public/views/game.html');
 });
 
 io.sockets.on('connection', function(socket){
@@ -38,12 +38,18 @@ io.sockets.on('connection', function(socket){
   	users.splice(connections.indexOf(socket), 1);
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
+    io.sockets.emit('erase all');
     sendUsers();
   });
 
   //Send ship to others
   socket.on('ship', function(data){
     socket.broadcast.emit('ship', data);
+  });
+
+  //Hitted ship (erase)
+  socket.on('hitted ship', function(data){
+    io.sockets.emit('erase ship', {x: data.x, y: data.y});
   });
 
   //Increase points
@@ -59,7 +65,12 @@ io.sockets.on('connection', function(socket){
   });
 
   function sendUsers(){
-  	io.sockets.emit('users', users);
+    var ranking = users.slice();
+    ranking.sort(function(a,b){
+      if(a.points > b.points)return -1;
+      if(a.points < b.points)return 1;
+    });
+  	io.sockets.emit('ranking', ranking);
   }
   
 });
