@@ -37,6 +37,7 @@ function drawOtherShip(data){
 			var collided = SAT.testPolygonCircle
 			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
 			if(collided === true){
+				socket.emit('increase points', data.name);
 				respawn();
 			}
 		}
@@ -52,6 +53,9 @@ function createShip(x, y){
   	triangle.rotate((Math.PI/180)*180);
   	triangle.translate(x, y);
   	ship = new Ship(triangle, x, y);
+
+  	ship.name = user.name;
+
 	setTimeout(function() {
 		ship.imortality = false;
 	}, 6000);

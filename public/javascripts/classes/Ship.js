@@ -29,6 +29,8 @@ function Ship(triangle, x, y){
 	this.imortality = true;
 	this.visible = true;
 
+	this.name = "";
+
 	this.move = function(keys){
 			if (38 in keys) {
 				this.boost();

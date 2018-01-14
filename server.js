@@ -47,8 +47,15 @@ io.sockets.on('connection', function(socket){
   });
 
   //Increase points
-  socket.on('Increase points', function(data){
-  	//showRanking();
+  socket.on('increase points', function(data){
+  	console.log(data);
+  	for(i=0; i<users.length; i++){
+  		if(users[i].name === data){
+  			users[i].points += 1;
+  			break;
+  		}
+  	}
+  	showRanking();
   });
 
   function showRanking(){
