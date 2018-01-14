@@ -159,18 +159,22 @@ function Ship(triangle, x, y){
 
 	this.obeyLimit = function(width, height){
 		if(this.x > width){
+			socket.emit('erase my ship', {x: ship.x, y: ship.y});
 			this.triangle.translate(-this.x, -this.y);
 			this.x = 0;
 			this.triangle.translate(this.x, this.y);
 		}else if(this.x < 0){
+			socket.emit('erase my ship', {x: ship.x, y: ship.y});
 			this.triangle.translate(-this.x, -this.y);
 			this.x = width;
 			this.triangle.translate(this.x, this.y);
 		}else if(this.y > height){
+			socket.emit('erase my ship', {x: ship.x, y: ship.y});
 			this.triangle.translate(-this.x, -this.y);
 			this.y = 0;
 			this.triangle.translate(this.x, this.y);
 		}else if(this.y < 0){
+			socket.emit('erase my ship', {x: ship.x, y: ship.y});
 			this.triangle.translate(-this.x, -this.y);
 			this.y = height;
 			this.triangle.translate(this.x, this.y);

@@ -34,16 +34,21 @@ socket.on('ship', function (data){
 			(ship.triangle, data.shots[i].circle, response);//...........................VERIFICA COLISÃO (NAVE, ÁTOMO)
 			if(collided === true){
 				socket.emit('increase points', data.name);
-				socket.emit('hitted ship', {x: ship.x, y: ship.y});
+				socket.emit('erase my ship', {x: ship.x, y: ship.y});
 				respawn();
 			}
 		}
 	}
 });
 
-//apagar nave destruida
+//apagar nave (destruida/nas bordas)
 socket.on('erase ship', function(data){
 	ctx.clearRect(data.x-14, data.y-14, 28, 28);
+});
+
+//apagar o tiro nas bordas
+socket.on('erase shot', function(data){
+	ctx.clearRect(data.x-6, data.y-6, 12, 12);
 });
 
 function createShip(x, y){

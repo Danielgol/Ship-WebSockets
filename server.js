@@ -47,9 +47,14 @@ io.sockets.on('connection', function(socket){
     socket.broadcast.emit('ship', data);
   });
 
-  //Hitted ship (erase)
-  socket.on('hitted ship', function(data){
+  //Erase ship
+  socket.on('erase my ship', function(data){
     io.sockets.emit('erase ship', {x: data.x, y: data.y});
+  });
+
+  //Erase shot in borders
+  socket.on('erase my shot', function(data){
+    socket.broadcast.emit('erase shot', {x: data.x, y: data.y});
   });
 
   //Increase points

@@ -28,12 +28,16 @@ function Shot(circle, angle){
 
 	this.obeyLimit = function(width, height){
 		if(this.circle['pos'].x > width){
+			socket.emit('erase my shot', {x: this.circle['pos'].x, y: this.circle['pos'].y});
 			this.circle['pos'].x = 0;
 		}else if(this.circle['pos'].x < 0){
+			socket.emit('erase my shot', {x: this.circle['pos'].x, y: this.circle['pos'].y});
 			this.circle['pos'].x = width;
 		}else if(this.circle['pos'].y > height){
+			socket.emit('erase my shot', {x: this.circle['pos'].x, y: this.circle['pos'].y});
 			this.circle['pos'].y = 0;
 		}else if(this.circle['pos'].y < 0){
+			socket.emit('erase my shot', {x: this.circle['pos'].x, y: this.circle['pos'].y});
 			this.circle['pos'].y = height;
 		}
 	}
