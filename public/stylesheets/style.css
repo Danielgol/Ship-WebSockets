@@ -1,0 +1,37 @@
+
+@font-face {
+  font-family: Hyper;
+  src: url("./_fonts/Hyperspace Bold.otf");
+}
+
+@font-face {
+  font-family: HyperItalic;
+  src: url("./_fonts/Hyperspace Italic.otf");
+}
+
+body {
+    background-color: #101010;
+}
+
+canvas {
+    position: absolute;
+    background-color: #202020;
+    top: 5%;
+    left: 17%;
+    margin: 0px;
+}
+
+input {
+    font-family: Hyper;
+    font-size: 30px;
+    color: white;
+    background-color: #101010;
+}
+
+form {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    border: 0px;
+    transform: translate(-50%, -60%);
+}
