@@ -48,10 +48,18 @@
 
       socket.emit('new user', user);
 
-      socket.on('ranking', function(data){
+      socket.on('users', function(data){
+
+          var ranking = data;
+          
+          ranking.sort(function(a,b){
+            if(a.points > b.points)return -1;
+            if(a.points < b.points)return 1;
+          });
+
           var html = "<tr><td>RANKING</td></tr>";
-          for(i=0; i<data.users.length; i++){
-              html += "<tr><td>"+(i+1)+". "+data.users[i].name+": "+data.users[i].points+"</td></tr>";
+          for(i=0; i<ranking.length; i++){
+              html += "<tr><td>"+(i+1)+". "+ranking[i].name+": "+ranking[i].points+"</td></tr>";
           }
           document.getElementById('ranking').innerHTML = html;
       });

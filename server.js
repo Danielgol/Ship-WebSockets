@@ -4,8 +4,8 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-users = [];
-connections = [];
+var users = [];
+var connections = [];
 
 server.listen(process.env.PORT || 3000);
 
@@ -30,7 +30,7 @@ io.sockets.on('connection', function(socket){
   socket.on('new user', function(data){
   	console.log('User %s: '+data.name, connections.length);
     users.push(data);
-    showRanking();
+    sendUsers();
   });
 
   //Disconnect
@@ -38,7 +38,7 @@ io.sockets.on('connection', function(socket){
   	users.splice(connections.indexOf(socket), 1);
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
-    showRanking();
+    sendUsers();
   });
 
   //Send ship to others
@@ -48,26 +48,18 @@ io.sockets.on('connection', function(socket){
 
   //Increase points
   socket.on('increase points', function(data){
-  	console.log(data);
+  	console.log('Increase score of: '+data);
   	for(i=0; i<users.length; i++){
   		if(users[i].name === data){
   			users[i].points += 1;
   			break;
   		}
   	}
-  	showRanking();
+  	sendUsers();
   });
 
-  function showRanking(){
-  	var ranking = users;
-
-  	//sort ranking
-    ranking.sort(function(a,b){
-      if(a.points > b.points)return -1;
-      if(a.points < b.points)return 1;
-    });
-
-  	io.sockets.emit('ranking', {users: ranking});
+  function sendUsers(){
+  	io.sockets.emit('users', users);
   }
   
 });
