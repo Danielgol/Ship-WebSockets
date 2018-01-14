@@ -60,7 +60,13 @@ io.sockets.on('connection', function(socket){
 
   function showRanking(){
   	var ranking = users;
+
   	//sort ranking
+    ranking.sort(function(a,b){
+      if(a.points > b.points)return -1;
+      if(a.points < b.points)return 1;
+    });
+
   	io.sockets.emit('ranking', {users: ranking});
   }
   
