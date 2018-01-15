@@ -51,6 +51,11 @@ socket.on('erase shot', function(data){
 	ctx.clearRect(data.x-6, data.y-6, 12, 12);
 });
 
+//apagar tudo
+socket.on('erase all', function(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
 function createShip(x, y){
 	var x = x;
 	var y = y;

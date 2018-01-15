@@ -5,11 +5,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <link rel="stylesheet" href="../stylesheets/style.css">
     <style>
-      canvas {
+      canvas.game {
         position: absolute;
         background-color: #101010;
+        width:  70%;
+        height: 90%;
         top: 5%;
-        left: 17%;
+        left: 15%;
+        margin: 0px;
+      }
+      canvas.border {
+        position: absolute;
+        background-color: white;
+        width: 70.5%;
+        height: 91.2%;
+        top: 4.5%;
+        left: 14.7%;
         margin: 0px;
       }
       table {
@@ -34,9 +45,9 @@
 
     <table id="ranking"><tr><td>RANKING</td></tr></table>
 
-    <canvas style="background-color: white; top:4.8%; left: 16.9%;" height="602" width="902" id="border"></canvas>
+    <canvas class="border" id="whiteBorder"></canvas>
 
-    <canvas height="600" width="900" id="mycanvas">O seu browser não suporta canvas</canvas>
+    <canvas class="game" height="600" width="900" id="mycanvas">O seu browser não suporta canvas</canvas>
 
     <script type="text/javascript" src="javascripts/SAT.js"></script>
 
@@ -63,10 +74,6 @@
             html += "<tr><td class=\"name\">"+(i+1)+". "+ranking[i].name+" </td><td>: "+ranking[i].points+"</td></tr>";
         }
         document.getElementById('ranking').innerHTML = html;
-      });
-
-      socket.on('erase all', function(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
       });
 
     </script>
