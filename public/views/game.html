@@ -27,13 +27,22 @@
         font-family: Arista;
         font-size: 20px;
         position: absolute;
+        width: 10%;
+        height: 10%;
         top: 5%;
         left: 1%;
-        background-color: #101010;
+        background-color: transparent;
         color: white;
+        z-index: 1;
       }
       td.name {
-        max-width: 165px;
+        max-width: 130px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      td.points {
+        max-width: 50px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -71,7 +80,7 @@
         var ranking = data;
         var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">RANKING</td></tr>";
         for(i=0; i<ranking.length; i++){
-            html += "<tr><td class=\"name\">"+(i+1)+". "+ranking[i].name+" </td><td>: "+ranking[i].points+"</td></tr>";
+            html += "<tr><td class=\"name\">"+(i+1)+". "+ranking[i].name+" </td><td class=\"points\">: "+ranking[i].points+"</td></tr>";
         }
         document.getElementById('ranking').innerHTML = html;
       });
